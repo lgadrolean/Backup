@@ -15,9 +15,13 @@ except ImportError:
     import configparser
     from functions import create_backup, maintain_backups, log_message
 
+# Obter o caminho completo do diretório onde o script está localizado
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
 # Ler as configurações do arquivo config.ini
+config_path = os.path.join(script_dir, 'config.ini')
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read(config_path)
 
 source_path = config['Paths']['source_path']
 destination_path = config['Paths']['destination_path']
