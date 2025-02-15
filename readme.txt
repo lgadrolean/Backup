@@ -1,31 +1,31 @@
-# Script de Backup Automatizado
+Automated Backup Script
 
-Este script realiza backups automáticos de um diretório de origem para um diretório de destino, mantendo backups diários e quentes separados e garantindo que apenas os backups mais recentes sejam mantidos.
+This script automatically backs up a source directory to a destination directory, maintaining separate daily and hot backups and ensuring that only the most recent backups are kept.
 
-## Estrutura do Projeto
+Project Structure
 
-- main.py: Arquivo principal que executa a lógica do backup.
-- functions.py: Contém funções auxiliares para a criação de backups, manutenção dos backups e logging.
-- config.ini: Arquivo de configuração contendo os caminhos dos diretórios e nomes de backup.
-- requirements.txt: Lista de dependências necessárias para o script.
+- main.py: Main file that executes the backup logic.
+- functions.py: Contains helper functions for creating backups, maintaining backups, and logging.
+- config.ini: Configuration file containing directory paths and backup names.
+- requirements.txt: List of dependencies required for the script.
 
-## Configuração
+Configuration
 
-Antes de executar o script, certifique-se de ter os seguintes arquivos na estrutura correta:
+Before running the script, ensure you have the following files in the correct structure:
 
-### config.ini
+config.ini
 
-Especifique os caminhos dos diretórios e configurações de backup.
+Specify the directory paths and backup settings.
 
 [Paths]
-source_path = C:/users/lgadr/Projetos
+source_path = C:/users/lgadr/Projects
 destination_path = C:/users/lgadr/Backups
-project_dir = C:/users/lgadr/Projetos/Backup
+project_dir = C:/users/lgadr/Projects/Backup
 
 [Backup]
-backupname = Backup_Projetos
-daily_backup_path = backup_diario
-hot_backup_path = backup_quente
+backupname = Backup_Projects
+daily_backup_path = daily_backup
+hot_backup_path = hot_backup
 keep_count_daily = 7
 keep_count_hot = 10
 keep_count_cloud = 5
@@ -33,32 +33,33 @@ keep_count_cloud = 5
 [Cloud]
 onedrive_path = C:/users/lgadr/OneDrive/Backups
 
-### requirements.txt
+requirements.txt
 
-Lista de dependências necessárias para o script.
+List of dependencies required for the script.
 
-## Uso
+Usage
 
-1. Certifique-se de que todos os arquivos (main.py, functions.py, config.ini, requirements.txt) estejam no diretório do projeto (project_dir).
+1. Ensure that all files (main.py, functions.py, config.ini, requirements.txt) are in the project directory (project_dir).
 
-2. Execute o main.py. O script irá instalar automaticamente as dependências necessárias e criar os backups conforme a configuração no config.ini.
+2. Run main.py. The script will automatically install the required dependencies and create the backups as per the configuration in config.ini.
 
-### Comandos
+Commands
 
-Para executar o script, use:
+To run the script, use:
 
 python main.py
 
-### Log
+Log
 
-O script irá gerar um log detalhado no caminho especificado (log_path), incluindo informações sobre o processo de backup, backups movidos para o OneDrive e estatísticas de backups existentes.
+The script will generate a detailed log at the specified path (log_path), including information about the backup process, backups moved to OneDrive, and statistics of existing backups.
 
-## Estatísticas dos Backups
+Backup Statistics
 
-No final do processo de backup, o script registra as estatísticas dos backups existentes:
-- Número de backups diários
-- Número de backups quentes
-- Número de backups na nuvem
+At the end of the backup process, the script logs statistics of the existing backups:
+- Number of daily backups
+- Number of hot backups
+- Number of cloud backups
 
-Contribuição
-Eu espero que você use e aproveite este script de backup automatizado. Caso encontre algum problema ou tenha sugestões de melhorias, sinta-se à vontade para abrir um issue ou deixar seu feedback. Sua contribuição é muito bem-vinda e apreciada!
+Contribution
+
+I hope you use and enjoy this automated backup script. If you encounter any issues or have suggestions for improvements, feel free to open an issue or leave your feedback. Your contribution is very welcome and appreciated!

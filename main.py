@@ -42,9 +42,9 @@ def main():
         create_backup(source_path, hot_backup_path, daily_backup_path, backupname, log_path, onedrive_path, keep_count_cloud)
         maintain_backups(daily_backup_path, backupname, log_path, keep_count_daily)
         maintain_backups(hot_backup_path, backupname, log_path, keep_count_hot)
-        log_message(log_path, "Backup concluído com sucesso.")
+        log_message(log_path, "Backup completed successfully.")
     except Exception as e:
-        log_message(log_path, f"Erro durante o processo de backup: {e}")
+        log_message(log_path, f"Error during the backup process: {e}")
 
 if __name__ == "__main__":
     main()
