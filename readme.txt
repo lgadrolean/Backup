@@ -59,3 +59,6 @@ No final do processo de backup, o script registra as estatísticas dos backups e
 - Número de backups diários
 - Número de backups quentes
 - Número de backups na nuvem
+
+Contribuição
+Eu espero que você use e aproveite este script de backup automatizado. Caso encontre algum problema ou tenha sugestões de melhorias, sinta-se à vontade para abrir um issue ou deixar seu feedback. Sua contribuição é muito bem-vinda e apreciada!
