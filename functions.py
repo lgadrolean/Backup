@@ -23,7 +23,7 @@ def copytree(src, dst, log_path):
         except Exception as e:
             log_message(log_path, f"Erro ao copiar {s} para {d}: {e}")
 
-def create_backup(source_path, hot_backup_path, daily_backup_path, backupname, log_path):
+def create_backup(source_path, hot_backup_path, daily_backup_path, backupname, log_path, onedrive_path, keep_count_cloud):
     timestamp = datetime.now().strftime('%Y%m%d_%H%M')
     backup_name = f"{backupname}_{timestamp}.zip"
     backup_path = os.path.join(hot_backup_path, backup_name)
@@ -54,9 +54,28 @@ def create_backup(source_path, hot_backup_path, daily_backup_path, backupname, l
         shutil.copy2(backup_path, daily_backup_path_full)
         log_message(log_path, f"Backup diário movido para {daily_backup_path_full}.")
 
-def maintain_backups(backup_path, backupname, log_path, keep_count):
+    onedrive_backup_path_full = os.path.join(onedrive_path, daily_backup_name)
+    if not os.path.exists(onedrive_backup_path_full):
+        shutil.copy2(backup_path, onedrive_backup_path_full)
+        log_message(log_path, f"Backup diário movido para o OneDrive: {onedrive_backup_path_full}.")
+
+    maintain_backups(onedrive_path, backupname, log_path, keep_count_cloud, "nuvem")
+
+    # Registrar estatísticas dos backups existentes
+    log_backup_statistics(daily_backup_path, hot_backup_path, onedrive_path, backupname, log_path)
+
+def maintain_backups(backup_path, backupname, log_path, keep_count, tipo="local"):
     log_message(log_path, f"Verificando backups antigos para remoção em {backup_path}.")
     backups = sorted([f for f in os.listdir(backup_path) if f.startswith(backupname) and f.endswith(".zip")], key=lambda x: os.path.getmtime(os.path.join(backup_path, x)), reverse=True)
     for backup in backups[keep_count:]:
         os.remove(os.path.join(backup_path, backup))
-        log_message(log_path, f"Backup antigo removido: {backup}")
+        log_message(log_path, f"Backup {tipo} antigo removido: {backup}")
+
+def log_backup_statistics(daily_backup_path, hot_backup_path, onedrive_path, backupname, log_path):
+    daily_backups = [f for f in os.listdir(daily_backup_path) if f.startswith(backupname) and f.endswith(".zip")]
+    hot_backups = [f for f in os.listdir(hot_backup_path) if f.startswith(backupname) and f.endswith(".zip")]
+    cloud_backups = [f for f in os.listdir(onedrive_path) if f.startswith(backupname) and f.endswith(".zip")]
+
+    log_message(log_path, f"Número de backups diários: {len(daily_backups)}")
+    log_message(log_path, f"Número de backups quentes: {len(hot_backups)}")
+    log_message(log_path, f"Número de backups na nuvem: {len(cloud_backups)}")
